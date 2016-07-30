@@ -128,9 +128,14 @@ Object.defineProperty(window.chassis, 'core', {
         console.log(e)
         event = document.createEvent('Event')
         if (payload) {
-          event.initCustomEvent(eventName, true, true, {
-            detail: payload
-          })
+          try {
+            event.initCustomEvent(eventName, true, true, {
+              detail: payload
+            })
+          } catch (e2) {
+            event.initEvent(eventName, true, true)
+            event.detail = payload
+          }
         } else {
           event.initEvent(eventName, true, true)
         }
