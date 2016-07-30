@@ -48,6 +48,25 @@ Object.defineProperty(window.chassis, 'core', {
   configurable: false,
   value: {
     /**
+     * @method getObjectPrototype
+     * A polyfill to support older browsers (IE11)
+     * @param {object|function} obj
+     * The object to return the prototype of.
+     * @private
+     */
+    getObjectPrototype: function (obj) {
+      if (Object.hasOwnProperty('getPrototypeOf')) {
+        return Object.getPrototypeOf(obj)
+      } else if (obj.hasOwnProperty('__proto__')) { // eslint-disable-line no-proto
+        return obj.__proto__ // eslint-disable-line no-proto
+      } else if (obj.hasOwnProperty('prototype')) {
+        return obj.prototype
+      }
+
+      return obj
+    },
+
+    /**
      * @method deduplicate
      * Deduplicate an array.
      * @param  {array} array

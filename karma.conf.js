@@ -149,6 +149,9 @@ var getFiles = function () {
       return filename !== 'core.js'
     })
     files.unshift('core.js')
+    files = files.map(function (filename) {
+      return 'src/' + filename
+    })
   }
 
   return files.concat([

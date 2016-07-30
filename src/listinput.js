@@ -83,7 +83,7 @@ Object.defineProperties(window.chassis, {
     writable: false,
     configurable: false,
     value: function (element) {
-      Object.defineProperties(Object.getPrototypeOf(element), {
+      Object.defineProperties(chassis.core.getObjectPrototype(element), {
         listData: {
           enumerable: false,
           writable: true,
@@ -149,7 +149,7 @@ Object.defineProperties(window.chassis, {
         }
       })
 
-      Object.defineProperties(Object.getPrototypeOf(element), {
+      Object.defineProperties(chassis.core.getObjectPrototype(element), {
         /**
          * @property {array} data
          * The list data.
