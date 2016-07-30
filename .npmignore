@@ -1,0 +1,5 @@
+karma.conf.js
+dist
+test
+src
+env.json

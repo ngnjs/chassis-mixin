@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+    <script src="../core.js"></script>
+    <script src="../listinput.js"></script>
+  </head>
+  <body>
+    <input class="chassis-listinput" placeholder="Provide a list of data..."/>
+    <script>
+      var a = document.querySelector('.chassis-listinput:first-of-type')
+
+      a.addEventListener('update', function (e) {
+        console.log(e.detail)
+      })
+
+      a.addEventListener('append', function (e) {
+        console.log(e.detail)
+      })
+
+      chassis.listinput(a)
+    </script>
+  </body>
+</html>
