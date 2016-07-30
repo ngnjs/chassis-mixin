@@ -257,19 +257,6 @@ gulp.task('release', function (next) {
             process.exit(0)
           }
 
-          // Move the shared directories to the root of the distribution
-          Object.keys(shared).forEach(function (dir) {
-            const shareddir = path.join(DIR.dist, dir)
-            try {
-              fs.accessSync(shareddir, fs.F_OK)
-              walk(shareddir).forEach(function (filepath) {
-                let newpath = path.join(DIR.dist, filepath.replace(DIR.dist + path.sep, '').replace(path.sep, '.'))
-                fs.renameSync(filepath, newpath)
-              })
-              del.sync(path.join(DIR.dist, dir))
-            } catch (e) {}
-          })
-
           const assets = walk(DIR.dist).sort()
 
           GithubPublisher({
