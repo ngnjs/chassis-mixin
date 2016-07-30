@@ -116,7 +116,7 @@ Object.defineProperty(window.chassis, 'core', {
      */
     emit: function (element, eventName, payload) {
       var event
-      if (CustomEvent) {
+      try {
         if (payload) {
           event = new CustomEvent(eventName, {
             detail: payload
@@ -124,7 +124,7 @@ Object.defineProperty(window.chassis, 'core', {
         } else {
           event = new CustomEvent(eventName)
         }
-      } else {
+      } catch (e) {
         event = document.createEvent('Event')
         if (payload) {
           event.initCustomEvent(eventName, true, true, {
