@@ -149,6 +149,22 @@ gulp.task('generate', function (next) {
       .on('end', cont)
   })
 
+  tasks.add(function (cont) {
+    console.log('Generating comprehensive file: chassis.mixins.min.js')
+    var filepaths = files.map(function (filename) {
+      return path.join(DIR.source, filename)
+    })
+    gulp.src(filepaths)
+      // .pipe(sourcemaps.init())
+      .pipe(concat('chassis.mixins.debug.js'))
+      .pipe(babel(babelConfig))
+      // .pipe(uglify(minifyConfig))
+      .pipe(header(headerComment))
+      // .pipe(sourcemaps.write('./sourcemaps', srcmapcfg))
+      .pipe(gulp.dest(DIR.dist))
+      .on('end', cont)
+  })
+
   tasks.on('complete', function () {
     // Zip the sourcemaps into a single archive
     const maps = fs.readdirSync(path.join(DIR.dist, 'sourcemaps'))

@@ -142,7 +142,7 @@ var getFiles = function () {
 
   if (useDistributionFiles) {
     files = [
-      'dist/chassis.mixins.min.js'
+      'dist/chassis.mixins.debug.js'
     ]
   } else {
     files = require('fs').readdirSync(require('path').resolve('./src')).filter(function (filename) {
