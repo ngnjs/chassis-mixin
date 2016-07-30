@@ -125,6 +125,7 @@ Object.defineProperty(window.chassis, 'core', {
           event = new CustomEvent(eventName)
         }
       } catch (e) {
+        console.log(e)
         event = document.createEvent('Event')
         if (payload) {
           event.initCustomEvent(eventName, true, true, {
