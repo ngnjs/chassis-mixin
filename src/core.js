@@ -115,13 +115,27 @@ Object.defineProperty(window.chassis, 'core', {
      * An optional payload. This is applied to the event's `detail` attribute.
      */
     emit: function (element, eventName, payload) {
-      if (payload) {
-        element.dispatchEvent(new CustomEvent(eventName, {
-          detail: payload
-        }))
+      var event
+      if (CustomEvent) {
+        if (payload) {
+          event = new CustomEvent(eventName, {
+            detail: payload
+          })
+        } else {
+          event = new CustomEvent(eventName)
+        }
       } else {
-        element.dispatchEvent(new CustomEvent(eventName))
+        event = document.createEvent('Event')
+        if (payload) {
+          event.initCustomEvent(eventName, true, true, {
+            detail: payload
+          })
+        } else {
+          event.initEvent(eventName, true, true)
+        }
       }
+
+      element.dispatchEvent(event)
     },
 
     /**
