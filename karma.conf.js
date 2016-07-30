@@ -15,7 +15,7 @@ var reporterEngines = ['spec']
 var customLaunchers = {}
 var browsers = ['chrome']
 var sauceConfiguration = {
-  testName: 'NGN Chassis JS Lib Unit Tests',
+  testName: 'NGN Chassis Mixins Unit Tests',
   build: process.env.SEMAPHORE_BUILD_NUMBER || 1,
   recordVideo: false,
   recordScreenshots: false
