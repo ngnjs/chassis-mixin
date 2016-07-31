@@ -398,6 +398,31 @@ Object.defineProperties(window.chassis, {
               modified: [{old: oldValue, new: this.listData[index], index: index}]
             })
           }
+        },
+
+        /**
+         * @method indexOf
+         * Identifies the first index of a value within the list.
+         * @param {any} value
+         * The value to return from the list.
+         * @return {number}
+         * Returns the index of the value within the data set.
+         * Returns `-1` if the value is not found.
+         */
+        indexOf: {
+          enumerable: true,
+          writable: false,
+          configurable: false,
+          value: function (value) {
+            var index = -1
+            for (var x = 0; x < this.listData.length; x++) {
+              if (this.listData[x] === value) {
+                index = x
+                break
+              }
+            }
+            return index
+          }
         }
       })
     }

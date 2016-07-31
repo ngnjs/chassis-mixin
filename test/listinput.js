@@ -38,6 +38,9 @@ test('listinput data management', function (t) {
       e.detail.data[2] === 'testC', 'Proper data emitted in "append" event.')
     t.ok(element.data.length === 3, 'Successfully added data to the list.')
 
+    t.ok(element.indexOf('testB') === 1, 'indexOf() returns the proper index.')
+    t.ok(element.indexOf('DOESNOTEXIST') === -1, 'indexOf() returns -1 when the value does not exist.')
+
     element.removeEventListener('append', appendHandler)
     element.removeEventListener('update', firstHandler)
 
