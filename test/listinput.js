@@ -23,55 +23,15 @@ test('listinput attributes', function (t) {
 })
 
 test('listinput data management', function (t) {
-  element.value = 'testA;testB;testC'
+  element.value = 'testA;testB;testC;testC'
 
-  var firstHandler = function (e) {
-    t.ok(e.detail.hasOwnProperty('created') &&
-      e.detail.hasOwnProperty('deleted') &&
-      e.detail.hasOwnProperty('modified'), 'Proper attributes emitted on update.')
-  }
+  element.addEventListener('submit', function (e) {
+    t.pass('submit event fired.')
+    console.log(element.value)
+    t.ok(element.value.trim().length === 0, 'Form element cleared after submit.')
+    t.ok(e.detail.length === 3, 'Values deduplicated and delivered in submit event payload.')
+    t.end()
+  })
 
-  var appendHandler = function (e) {
-    t.ok(e.detail.data.length === 3 &&
-      e.detail.data[0] === 'testA' &&
-      e.detail.data[1] === 'testB' &&
-      e.detail.data[2] === 'testC', 'Proper data emitted in "append" event.')
-    t.ok(element.data.length === 3, 'Successfully added data to the list.')
-
-    t.ok(element.indexOf('testB') === 1, 'indexOf() returns the proper index.')
-    t.ok(element.indexOf('DOESNOTEXIST') === -1, 'indexOf() returns -1 when the value does not exist.')
-
-    element.removeEventListener('append', appendHandler)
-    element.removeEventListener('update', firstHandler)
-
-    element.append('test4')
-    t.ok(element.data[3] === 'test4', 'append() works independently of submit()')
-
-    element.remove(0)
-    t.ok(element.data[0] === 'testB', 'Removing an element works.')
-
-    element.addEventListener('modified', modifyHandler)
-    element.setItem(0, 'x')
-  }
-
-  var modifyHandler = function (e) {
-    t.ok(e.detail.old === 'testB' &&
-      e.detail.new === 'x' &&
-      e.detail.index === 0, 'Modification triggers a change event.')
-
-    element.removeEventListener('modified', modifyHandler)
-
-    element.addEventListener('remove', function (e) {
-      t.ok(e.detail.data.length > 0, 'Removal triggers a properly defined event payload.')
-      t.ok(element.data.length === 0, 'Clear removes all data.')
-      t.end()
-    })
-
-    element.clear()
-    t.ok(element.data.length === 0, 'clear() works.')
-  }
-
-  element.addEventListener('append', appendHandler)
-  element.addEventListener('update', firstHandler)
   element.submit()
 })

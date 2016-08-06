@@ -25,6 +25,7 @@ switch (mode) {
   case 'live':
     console.warn('Running a live developer test.')
     useDistributionFiles = false
+
   case 'prod': // eslint-disable-line no-fallthrough
     console.warn('Running production test.')
     useDistributionFiles = typeof useDistributionFiles === 'boolean' ? useDistributionFiles : true
